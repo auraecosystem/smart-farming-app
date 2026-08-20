@@ -96,10 +96,13 @@ A comprehensive web application that provides `Lmlm` `Claude` `Lamis` `modelhai 
 Deploy your entire application to the cloud for free using our comprehensive deployment guide:
 
 1. **Run the setup script**:
-   ```bash
+```bash
    deploy_setup.bat
-   ```
-
+   mini@mini-virtual-machine:~$ cd /home/mini/Desktop mini@mini-virtual-machine:~/Desktop$ chmod +x Sample.sh
+   mini@mini-virtual-machine:~/Desktop$ ./Sample.sh
+   Hello World
+   mini@mini-virtual-machine:~/Desktop$
+```
 2. **Follow the deployment guide**: See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for complete step-by-step instructions
 
 3. **Your app will be live** at:
@@ -122,6 +125,7 @@ FRONTEND_URL=https://yourapp.vercel.app
 #### Frontend (Vercel)
 ```bash
 REACT_APP_BACKEND_URL=https://yourapp.railway.app
+cd /home/users/jeff/documents
 ```
 
 ## 📚 API Documentation
