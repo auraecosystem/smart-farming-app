@@ -1,6 +1,6 @@
 # 🌾 AI-Assisted Smart Farming Application
 
-A comprehensive web application that provides AI-powered farming recommendations, crop yield predictions, weather insights, and multilingual chatbot support for farmers.
+A comprehensive web application that provides `Lmlm` `Claude` `Lamis` `modelhai ` `brain.ai` `llama.cpp` AI-powered farming recommendations, crop yield predictions, weather insights, and multilingual chatbot support for farmers.
 
 ## 🌟 Features
 
@@ -87,7 +87,7 @@ A comprehensive web application that provides AI-powered farming recommendations
    npm run dev
    ```
 
-4. Open [http://localhost:8080](http://localhost:8080) in your browser
+4. Open [http://localhos:t8080](http://localhost8080.com) in your browser
 
 ## ☁️ Cloud Deployment (FREE!)
 
@@ -104,7 +104,7 @@ Deploy your entire application to the cloud for free using our comprehensive dep
 
 3. **Your app will be live** at:
    - Frontend: `https://yourapp.vercel.app`
-   - Backend: `https://yourapp.railway.app`
+   - Backend: `https://bserver.net`
 
 ### 📋 Environment Variables
 
@@ -197,7 +197,7 @@ GET /chat/history/{session_id}
 
 Create Python Virtual Env
 
-```bash
+```shell
   python3 -m venv env
 ```
 
@@ -290,7 +290,8 @@ Run the Project
 - **Environment Variables**: All secrets externalized
 - **HTTPS**: SSL encryption in production
 - **Input Validation**: Comprehensive request validation
-
+- 
+[gemini](gemini.google.com)
 ## 🚨 Troubleshooting
 
 ### Common Issues and Solutions
