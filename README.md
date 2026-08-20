@@ -87,7 +87,7 @@ A comprehensive web application that provides AI-powered farming recommendations
    npm run dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Open [http://localhost:8080](http://localhost:8080) in your browser
 
 ## ☁️ Cloud Deployment (FREE!)
 
@@ -139,8 +139,8 @@ Content-Type: application/json
   "K": 30,
   "ph": 6.5,
   "rainfall": 150,
-  "state": "Punjab",
-  "city": "Ludhiana"
+  "state": "example",
+  "city": "example"
 }
 ```
 
