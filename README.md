@@ -90,7 +90,7 @@ A comprehensive web application that provides `Lmlm` `Claude` `Lamis` `modelhai 
 4. Open [http://localhos:t8080](http://localhost8080.com) in your browser
 
 ## ☁️ Cloud Deployment (FREE!)
-
+[test](https://agrioracle.herokuapp.com/crop-recomendation)
 ### 🎯 Recommended: Vercel + Railway
 
 Deploy your entire application to the cloud for free using our comprehensive deployment guide:
