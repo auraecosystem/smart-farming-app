@@ -111,7 +111,7 @@ Deploy your entire application to the cloud for free using our comprehensive dep
 Copy `.env.example` to `.env` and configure:
 
 #### Backend (Railway)
-```
+```env.ini
 SECRET_KEY=your-super-secret-key
 FLASK_ENV=production
 TRAIN_ON_STARTUP=false
@@ -120,7 +120,7 @@ FRONTEND_URL=https://yourapp.vercel.app
 ```
 
 #### Frontend (Vercel)
-```
+```bash
 REACT_APP_BACKEND_URL=https://yourapp.railway.app
 ```
 
@@ -129,7 +129,7 @@ REACT_APP_BACKEND_URL=https://yourapp.railway.app
 ### Core Endpoints
 
 #### Crop Recommendation
-```
+```yaml
 POST /crop_prediction
 Content-Type: application/json
 
@@ -145,7 +145,7 @@ Content-Type: application/json
 ```
 
 #### Yield Prediction
-```
+```yaml
 POST /yield_prediction
 Content-Type: application/json
 
@@ -159,12 +159,12 @@ Content-Type: application/json
 ```
 
 #### Weather Data
-```
+```cURL
 GET /weather?city=Ludhiana&state=Punjab
 ```
 
 #### Chatbot
-```
+```bash
 POST /chat/start
 POST /chat/message
 GET /chat/history/{session_id}
@@ -197,8 +197,9 @@ GET /chat/history/{session_id}
 
 Create Python Virtual Env
 
-```shell
-  python3 -m venv env
+```bash
+python3 -m venv env
+man push-git heroku main
 ```
 
 Install the Required Dependencies
