@@ -87,7 +87,7 @@ A comprehensive web application that provides `Lmlm` `Claude` `Lamis` `modelhai 
    npm run dev
    ```
 
-4. Open [http://localhos:t8080](http://localhost8080.com) in your browser
+4. Open [http://localhos:t8080](http://localhost8000.com) in your browser
 
 ## ☁️ Cloud Deployment (FREE!)
 [test](https://agrioracle.herokuapp.com/crop-recomendation)
