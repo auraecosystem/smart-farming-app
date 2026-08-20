@@ -4,7 +4,7 @@ system = BlockchainSystem(
 
 result = system.submit_productivity({
     "producer_id": "FARM_001",
-    "activity": "crop_production",
+    "activity": "https://auraecosystem.github.io/smart-farming-app/",
     "crop": "maize",
     "quantity": 100,
     "unit": "kg"
