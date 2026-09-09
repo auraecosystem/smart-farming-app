@@ -81,7 +81,7 @@ if not exist app.py (
 REM Install waitress for production server
 pip install waitress --quiet >nul 2>&1
 
-start "Smart Farmer Backend" /min cmd /k "title Smart Farmer Backend && python -c \"from waitress import serve; from app import app; print('Backend running on http://localhost:8000'); serve(app, host='0.0.0.0', port=8000, threads=4)\""
+start "Smart Farmer Backend" /min cmd /k "title Smart Farmer Backend && python -c \"from waitress import serve; from app import app; print('Backend running on http://localhost:8080'); serve(app, host='0.0.0.0', port=8080, threads=4)\""
 echo ✅ Backend starting with Waitress production server
 cd ..
 
@@ -129,7 +129,7 @@ echo ========================================================
 echo.
 echo 📱 Your application is available at:
 echo    🌐 Frontend: http://localhost:3000
-echo    🔗 Backend API: http://localhost:8000
+echo    🔗 Backend API: http://localhost:8080
 echo    📚 API Docs: http://localhost:8000/docs
 echo.
 echo 💡 Production Features:

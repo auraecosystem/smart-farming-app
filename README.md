@@ -1,6 +1,6 @@
 # 🌾 AI-Assisted Smart Farming Application
 
-A comprehensive web application that provides AI-powered farming recommendations, crop yield predictions, weather insights, and multilingual chatbot support for farmers.
+A comprehensive web application that provides `Lmlm` `Claude` `Lamis` `modelhai ` `brain.ai` `llama.cpp` AI-powered farming recommendations, crop yield predictions, weather insights, and multilingual chatbot support for farmers.
 
 ## 🌟 Features
 
@@ -87,31 +87,34 @@ A comprehensive web application that provides AI-powered farming recommendations
    npm run dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Open [http://localhos:t8080](http://localhost8000.com) in your browser
 
 ## ☁️ Cloud Deployment (FREE!)
-
+[test](https://agrioracle.herokuapp.com/crop-recomendation)
 ### 🎯 Recommended: Vercel + Railway
 
 Deploy your entire application to the cloud for free using our comprehensive deployment guide:
 
 1. **Run the setup script**:
-   ```bash
+```bash
    deploy_setup.bat
-   ```
-
+   mini@mini-virtual-machine:~$ cd /home/mini/Desktop mini@mini-virtual-machine:~/Desktop$ chmod +x Sample.sh
+   mini@mini-virtual-machine:~/Desktop$ ./Sample.sh
+   Hello World
+   mini@mini-virtual-machine:~/Desktop$
+```
 2. **Follow the deployment guide**: See [DEPLOYMENT_GUIDE.md](DEPLOYMENT_GUIDE.md) for complete step-by-step instructions
 
 3. **Your app will be live** at:
    - Frontend: `https://yourapp.vercel.app`
-   - Backend: `https://yourapp.railway.app`
+   - Backend: `https://bserver.net`
 
 ### 📋 Environment Variables
 
 Copy `.env.example` to `.env` and configure:
 
 #### Backend (Railway)
-```
+```env.ini
 SECRET_KEY=your-super-secret-key
 FLASK_ENV=production
 TRAIN_ON_STARTUP=false
@@ -120,8 +123,9 @@ FRONTEND_URL=https://yourapp.vercel.app
 ```
 
 #### Frontend (Vercel)
-```
+```bash
 REACT_APP_BACKEND_URL=https://yourapp.railway.app
+cd /home/users/jeff/documents
 ```
 
 ## 📚 API Documentation
@@ -129,7 +133,7 @@ REACT_APP_BACKEND_URL=https://yourapp.railway.app
 ### Core Endpoints
 
 #### Crop Recommendation
-```
+```yaml
 POST /crop_prediction
 Content-Type: application/json
 
@@ -139,13 +143,13 @@ Content-Type: application/json
   "K": 30,
   "ph": 6.5,
   "rainfall": 150,
-  "state": "Punjab",
-  "city": "Ludhiana"
+  "state": "example",
+  "city": "example"
 }
 ```
 
 #### Yield Prediction
-```
+```yaml
 POST /yield_prediction
 Content-Type: application/json
 
@@ -159,12 +163,12 @@ Content-Type: application/json
 ```
 
 #### Weather Data
-```
+```cURL
 GET /weather?city=Ludhiana&state=Punjab
 ```
 
 #### Chatbot
-```
+```bash
 POST /chat/start
 POST /chat/message
 GET /chat/history/{session_id}
@@ -198,7 +202,8 @@ GET /chat/history/{session_id}
 Create Python Virtual Env
 
 ```bash
-  python3 -m venv env
+python3 -m venv env
+man push-git heroku main
 ```
 
 Install the Required Dependencies
@@ -290,7 +295,8 @@ Run the Project
 - **Environment Variables**: All secrets externalized
 - **HTTPS**: SSL encryption in production
 - **Input Validation**: Comprehensive request validation
-
+- 
+[gemini](gemini.google.com)
 ## 🚨 Troubleshooting
 
 ### Common Issues and Solutions

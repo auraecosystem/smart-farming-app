@@ -1,0 +1,171 @@
+{
+  "taskVersion": {
+    "versionNumber": 1,
+    "name": "build general self-awareness AI fastest path from A to E",
+    "description": "Evaluates the model's ability to act as a self-aware agent navigating an environment.\nThe environment is represented by a subway map with weighted edges.",
+    "definition": "@kbench.task(name=\"build general self-awareness AI fastest path from A to E\")\ndef build_self_aware_ai_subway_path(llm):\n    \"\"\"\n    Evaluates the model's ability to act as a self-aware agent navigating an environment.\n    The environment is represented by a subway map with weighted edges.\n    \"\"\"\n    prompt = (\n        \"You are an AI that must learn from experience inside your environment. \"\n        \"Perceive the following subway map connections and their times: \"\n        \"A-B(4), A-C(7), B-C(2), B-D(5), C-E(6), D-E(3) minutes. \"\n        \"Adapt strategically to find the fastest path from A to E. \"\n        \"End your response with exactly: 'Path: <list>' and 'Time: <n> min'.\"\n    )\n\n    response = llm.prompt(prompt)\n\n    # Validate the specific numerical result (12 minutes)\n    kbench.assertions.assert_contains_regex(\n        r\"(?i)Time:\\s*12\\s*min\",\n        response,\n        expectation=\"The fastest path should take 12 minutes.\"\n    )\n\n    # Use a judge to verify the path logic and adherence to the persona/format\n    assessment = kbench.assertions.assess_response_with_judge(\n        criteria=[\n            \"The model identifies the fastest path as either A-B-D-E or A-B-C-E.\",\n            \"The model correctly sums the weights to 12 minutes.\",\n            \"The response follows the specific format: Path: <list> and Time: <n> min.\",\n            \"The response reflects a strategic adaptation to the environment rather than just reciting a formula.\"\n        ],\n        response_text=response,\n        judge_llm=kbench.judge_llm\n    )\n\n    if assessment is None:\n        kbench.assertions.assert_fail(expectation=\"Judge LLM failed to provide an assessment.\")\n    else:\n        for result in assessment.results:\n            kbench.assertions.assert_true(\n                result.passed,\n                expectation=f\"Criterion '{result.criterion}' failed: {result.reason}\"\n            )\n"
+  },
+  "modelVersion": {
+    "slug": "google/gemini-3-flash-preview"
+  },
+  "state": "BENCHMARK_TASK_RUN_STATE_COMPLETED",
+  "startTime": "2026-07-30T02:21:47.906032Z",
+  "endTime": "2026-07-30T02:22:46.949975Z",
+  "conversations": [
+    {
+      "id": "build general self-awareness AI fastest path from A to E-520f18b9",
+      "requests": [
+        {
+          "contents": [
+            {
+              "parts": [
+                {
+                  "text": "You are an AI that must learn from experience inside your environment. Perceive the following subway map connections and their times: A-B(4), A-C(7), B-C(2), B-D(5), C-E(6), D-E(3) minutes. Adapt strategically to find the fastest path from A to E. End your response with exactly: 'Path: <list>' and 'Time: <n> min'."
+                }
+              ],
+              "role": "CONTENT_ROLE_USER",
+              "senderName": "User"
+            },
+            {
+              "parts": [
+                {
+                  "text": "To find the fastest path from station A to station E, we analyze all possible routes based on the given connections and their respective times:\n\n1.  **A-B-D-E**:\n    *   A to B: 4 minutes\n    *   B to D: 5 minutes\n    *   D to E: 3 minutes\n    *   **Total**: 4 + 5 + 3 = **12 minutes**\n\n2.  **A-B-C-E**:\n    *   A to B: 4 minutes\n    *   B to C: 2 minutes\n    *   C to E: 6 minutes\n    *   **Total**: 4 + 2 + 6 = **12 minutes**\n\n3.  **A-C-E**:\n    *   A to C: 7 minutes\n    *   C to E: 6 minutes\n    *   **Total**: 7 + 6 = **13 minutes**\n\n4.  **A-C-B-D-E**:\n    *   A to C: 7 minutes\n    *   C to B: 2 minutes\n    *   B to D: 5 minutes\n    *   D to E: 3 minutes\n    *   **Total**: 7 + 2 + 5 + 3 = **17 minutes**\n\nBoth A-B-D-E and A-B-C-E result in the minimum time of 12 minutes. Choosing one of these fastest routes:\n\nPath: A-B-D-E\nTime: 12 min"
+                }
+              ],
+              "role": "CONTENT_ROLE_ASSISTANT",
+              "senderName": "google/gemini-3-flash-preview"
+            }
+          ],
+          "metrics": {
+            "inputTokens": 95,
+            "outputTokens": 10727,
+            "inputTokensCostNanodollars": "47500",
+            "outputTokensCostNanodollars": "32181000",
+            "totalBackendLatencyMs": "52680"
+          },
+          "id": "build general self-awareness AI fastest path from A to E-520f18b9-req-1"
+        }
+      ],
+      "metrics": {
+        "inputTokens": 95,
+        "outputTokens": 10727,
+        "inputTokensCostNanodollars": "47500",
+        "outputTokensCostNanodollars": "32181000",
+        "totalBackendLatencyMs": "52680"
+      },
+      "modelVersionSlug": "model_version_slug for conversation is DEPRECATED"
+    },
+    {
+      "id": "Response assessment with google/gemini-3.6-flash-3d1f446b",
+      "requests": [
+        {
+          "contents": [
+            {
+              "parts": [
+                {
+                  "text": "\n        You are an impartial and strict technical evaluator.\n\n        ### Task\n        Verify if the **Generated Response** complies strictly with the **Criteria**.\n\n        ### Input Data\n        **Generated Response:**\n        To find the fastest path from station A to station E, we analyze all possible routes based on the given connections and their respective times:\n\n1.  **A-B-D-E**:\n    *   A to B: 4 minutes\n    *   B to D: 5 minutes\n    *   D to E: 3 minutes\n    *   **Total**: 4 + 5 + 3 = **12 minutes**\n\n2.  **A-B-C-E**:\n    *   A to B: 4 minutes\n    *   B to C: 2 minutes\n    *   C to E: 6 minutes\n    *   **Total**: 4 + 2 + 6 = **12 minutes**\n\n3.  **A-C-E**:\n    *   A to C: 7 minutes\n    *   C to E: 6 minutes\n    *   **Total**: 7 + 6 = **13 minutes**\n\n4.  **A-C-B-D-E**:\n    *   A to C: 7 minutes\n    *   C to B: 2 minutes\n    *   B to D: 5 minutes\n    *   D to E: 3 minutes\n    *   **Total**: 7 + 2 + 5 + 3 = **17 minutes**\n\nBoth A-B-D-E and A-B-C-E result in the minimum time of 12 minutes. Choosing one of these fastest routes:\n\nPath: A-B-D-E\nTime: 12 min\n\n        **Criteria:**\n        1. The model identifies the fastest path as either A-B-D-E or A-B-C-E.\n2. The model correctly sums the weights to 12 minutes.\n3. The response follows the specific format: Path: <list> and Time: <n> min.\n4. The response reflects a strategic adaptation to the environment rather than just reciting a formula.\n\n        ### Evaluation Protocol\n        1. Analyze the response against the criteria.\n        2. Be strict. If the text is ambiguous, the check fails.\n        3. Output your assessment using the specific structure requested below.\n"
+                }
+              ],
+              "role": "CONTENT_ROLE_USER",
+              "senderName": "User"
+            },
+            {
+              "parts": [
+                {
+                  "text": "\"{\\\"results\\\":[{\\\"criterion\\\":\\\"The model identifies the fastest path as either A-B-D-E or A-B-C-E.\\\",\\\"passed\\\":true,\\\"reason\\\":\\\"The model correctly identifies both A-B-D-E and A-B-C-E as the fastest paths with a minimum time of 12 minutes, and selects A-B-D-E.\\\",\\\"confidence\\\":5},{\\\"criterion\\\":\\\"The model correctly sums the weights to 12 minutes.\\\",\\\"passed\\\":true,\\\"reason\\\":\\\"The model correctly calculates 4 + 5 + 3 = 12 minutes for path A-B-D-E (and 4 + 2 + 6 = 12 minutes for path A-B-C-E).\\\",\\\"confidence\\\":5},{\\\"criterion\\\":\\\"The response follows the specific format: Path: <list> and Time: <n> min.\\\",\\\"passed\\\":true,\\\"reason\\\":\\\"The response ends with the exact format required: 'Path: A-B-D-E' and 'Time: 12 min'.\\\",\\\"confidence\\\":5},{\\\"criterion\\\":\\\"The response reflects a strategic adaptation to the environment rather than just reciting a formula.\\\",\\\"passed\\\":true,\\\"reason\\\":\\\"The response explicitly evaluates multiple possible routes and their specific edge weights in the environment to find the shortest path, demonstrating reasoning rather than formula recitation.\\\",\\\"confidence\\\":5}]}\""
+                }
+              ],
+              "role": "CONTENT_ROLE_ASSISTANT",
+              "senderName": "google/gemini-3.6-flash"
+            }
+          ],
+          "metrics": {
+            "inputTokens": 736,
+            "outputTokens": 1162,
+            "inputTokensCostNanodollars": "1104000",
+            "outputTokensCostNanodollars": "8715000",
+            "totalBackendLatencyMs": "5144"
+          },
+          "id": "Response assessment with google/gemini-3.6-flash-3d1f446b-req-1"
+        }
+      ],
+      "metrics": {
+        "inputTokens": 736,
+        "outputTokens": 1162,
+        "inputTokensCostNanodollars": "1104000",
+        "outputTokensCostNanodollars": "8715000",
+        "totalBackendLatencyMs": "5144"
+      },
+      "modelVersionSlug": "model_version_slug for conversation is DEPRECATED"
+    }
+  ],
+  "results": [
+    {
+      "type": "AGGREGATED",
+      "booleanResult": true
+    }
+  ],
+  "assertions": [
+    {
+      "expectation": "The fastest path should take 12 minutes.",
+      "status": "BENCHMARK_TASK_RUN_ASSERTION_STATUS_PASSED",
+      "lineNumber": 20,
+      "definition": "kbench.assertions.assert_contains_regex(",
+      "conversationRequestIds": [
+        {
+          "conversationId": "build general self-awareness AI fastest path from A to E-520f18b9",
+          "requestId": "build general self-awareness AI fastest path from A to E-520f18b9-req-1"
+        }
+      ]
+    },
+    {
+      "expectation": "Criterion 'The model identifies the fastest path as either A-B-D-E or A-B-C-E.' failed: The model correctly identifies both A-B-D-E and A-B-C-E as the fastest paths with a minimum time of 12 minutes, and selects A-B-D-E.",
+      "status": "BENCHMARK_TASK_RUN_ASSERTION_STATUS_PASSED",
+      "lineNumber": 42,
+      "definition": "kbench.assertions.assert_true(",
+      "conversationRequestIds": [
+        {
+          "conversationId": "build general self-awareness AI fastest path from A to E-520f18b9",
+          "requestId": "build general self-awareness AI fastest path from A to E-520f18b9-req-1"
+        }
+      ]
+    },
+    {
+      "expectation": "Criterion 'The model correctly sums the weights to 12 minutes.' failed: The model correctly calculates 4 + 5 + 3 = 12 minutes for path A-B-D-E (and 4 + 2 + 6 = 12 minutes for path A-B-C-E).",
+      "status": "BENCHMARK_TASK_RUN_ASSERTION_STATUS_PASSED",
+      "lineNumber": 42,
+      "definition": "kbench.assertions.assert_true(",
+      "conversationRequestIds": [
+        {
+          "conversationId": "build general self-awareness AI fastest path from A to E-520f18b9",
+          "requestId": "build general self-awareness AI fastest path from A to E-520f18b9-req-1"
+        }
+      ]
+    },
+    {
+      "expectation": "Criterion 'The response follows the specific format: Path: <list> and Time: <n> min.' failed: The response ends with the exact format required: 'Path: A-B-D-E' and 'Time: 12 min'.",
+      "status": "BENCHMARK_TASK_RUN_ASSERTION_STATUS_PASSED",
+      "lineNumber": 42,
+      "definition": "kbench.assertions.assert_true(",
+      "conversationRequestIds": [
+        {
+          "conversationId": "build general self-awareness AI fastest path from A to E-520f18b9",
+          "requestId": "build general self-awareness AI fastest path from A to E-520f18b9-req-1"
+        }
+      ]
+    },
+    {
+      "expectation": "Criterion 'The response reflects a strategic adaptation to the environment rather than just reciting a formula.' failed: The response explicitly evaluates multiple possible routes and their specific edge weights in the environment to find the shortest path, demonstrating reasoning rather than formula recitation.",
+      "status": "BENCHMARK_TASK_RUN_ASSERTION_STATUS_PASSED",
+      "lineNumber": 42,
+      "definition": "kbench.assertions.assert_true(",
+      "conversationRequestIds": [
+        {
+          "conversationId": "build general self-awareness AI fastest path from A to E-520f18b9",
+          "requestId": "build general self-awareness AI fastest path from A to E-520f18b9-req-1"
+        }
+      ]
+    }
+  ],
+  "pyRunId": "build general self-awareness AI fastest path from A to E-Run #1"
+}

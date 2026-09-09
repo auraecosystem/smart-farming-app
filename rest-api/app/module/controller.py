@@ -669,9 +669,245 @@ def top5winners_loosers():
     return  jsonify(response_dict)
 
 
+@app.route("/api/productivity/event", methods=["POST"])
+def submit_productivity_event():
+
+    data = request.get_json()
+
+    producer_id = data.get("producer_id")
+    activity = data.get("activity")
+    crop_name = data.get("crop")
+    quantity = data.get("quantity")
+    unit = data.get("unit")
+
+    if not producer_id:
+        return jsonify({
+            "cod": 400,
+            "detail": "producer_id is required"
+        }), 400
+
+    if not activity:
+        return jsonify({
+            "cod": 400,
+            "detail": "activity is required"
+        }), 400
+
+    if not crop_name:
+        return jsonify({
+            "cod": 400,
+            "detail": "crop is required"
+        }), 400
+
+    if quantity is None:
+        return jsonify({
+            "cod": 400,
+            "detail": "quantity is required"
+        }), 400
+
+    try:
+        quantity = float(quantity)
+
+        if quantity <= 0:
+            raise ValueError
+
+    except (TypeError, ValueError):
+
+        return jsonify({
+            "cod": 400,
+            "detail": "quantity must be a positive number"
+        }), 400
+
+    productivity_event = {
+        "producer_id": producer_id,
+        "activity": activity,
+        "crop": crop_name.lower(),
+        "quantity": quantity,
+        "unit": unit,
+        "source": "smart_farm_app",
+        "status": "pending"
+    }
+
+    return jsonify({
+        "cod": 201,
+        "message": "Productivity event received",
+        "event": productivity_event
+    }), 201
+
+@app.route("/api/productivity/event", methods=["POST"])
+def submit_productivity_event():
+
+    data = request.get_json(silent=True) or {}
+
+    required_fields = [
+        "producer_id",
+        "activity",
+        "crop",
+        "quantity",
+        "unit"
+    ]
+
+    missing = [
+        field
+        for field in required_fields
+        if field not in data
+    ]
+
+    if missing:
+
+        return jsonify({
+            "cod": 400,
+            "detail": "Missing required fields",
+            "missing": missing
+        }), 400
+
+    try:
+
+        quantity = float(
+            data["quantity"]
+        )
+
+        if quantity <= 0:
+            raise ValueError
+
+    except (TypeError, ValueError):
+
+        return jsonify({
+            "cod": 400,
+            "detail": (
+                "quantity must be "
+                "a positive number"
+            )
+        }), 400
+
+    event = {
+        "producer_id":
+            str(data["producer_id"]),
+
+        "activity":
+            str(data["activity"]),
+
+        "crop":
+            str(data["crop"]).lower(),
+
+        "quantity":
+            quantity,
+
+        "unit":
+            str(data["unit"]),
+
+        "metadata":
+            data.get("metadata", {})
+    }
+
+    try:
+
+        result = (
+            blockchain_service
+            .submit_productivity_event(
+                event
+            )
+        )
+
+        return jsonify({
+            "cod": 201,
+            "message":
+                "Productivity event recorded",
+            "result": result
+        }), 201
+
+    except ValueError as error:
+
+        return jsonify({
+            "cod": 400,
+            "detail": str(error)
+        }), 400
+
+    except Exception as error:
+
+        return jsonify({
+            "cod": 500,
+            "detail":
+                "Unable to process productivity event",
+            "error": str(error)
+        }), 500
+
+@app.route(
+    "/api/blockchain",
+    methods=["GET"]
+)
+def get_blockchain():
+
+    chain = (
+        blockchain_service
+        .get_chain()
+    )
+
+    return jsonify({
+        "cod": 200,
+        "length": len(chain),
+        "chain": chain
+    })
 
 
+@app.route(
+    "/api/blockchain/block/<int:index>",
+    methods=["GET"]
+)
+def get_block(index):
+
+    block = (
+        blockchain_service
+        .get_block(index)
+    )
+
+    if block is None:
+
+        return jsonify({
+            "cod": 404,
+            "detail": "Block not found"
+        }), 404
+
+    return jsonify({
+        "cod": 200,
+        "block": block
+    })
 
 
+@app.route(
+    "/api/blockchain/validate",
+    methods=["GET"]
+)
+def validate_blockchain():
 
+    valid = (
+        blockchain_service
+        .validate_chain()
+    )
 
+    return jsonify({
+        "cod": 200,
+        "valid": valid
+    })
+
+@app.route(
+    "/api/rewards/<producer_id>",
+    methods=["GET"]
+)
+def get_productivity_rewards(
+    producer_id
+):
+
+    rewards = (
+        blockchain_service
+        .get_rewards(
+            producer_id
+        )
+    )
+
+    return jsonify({
+        "cod": 200,
+        "producer_id":
+            producer_id,
+        "rewards":
+            rewards
+    })
